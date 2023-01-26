@@ -1,7 +1,7 @@
 # OC-P13-Argent-Bank
 
 **Front end argent bank**
-<kbd>![sign-in](./sign-in.png)</kbd>
+<kbd>![sign-in](./sign-in.JPG)</kbd>
 
 > PROBLEMATIQUE
 > Créer une application web React pour le nouveau système d'authentification des utilisateurs
