@@ -1,0 +1,25 @@
+@use "../../../assets/styles/function" as function;
+
+.formNewUser{
+    display: flex;
+    justify-content: center;
+    &__wrapper{    
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+        justify-content: center;
+        & input, button {
+            padding: 0.5rem;
+        }
+        & button{
+            color: function.color(dark);
+            font-weight: 700;
+            border: 5px solid function.color(primary);
+            max-width: 50%;
+            align-items: flex-end;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }   
+} 
