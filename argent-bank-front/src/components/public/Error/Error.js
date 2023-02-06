@@ -1,6 +1,11 @@
 import styles from './error.module.scss'
 import { Link } from 'react-router-dom'
 
+/**
+ * Page 404'.
+ *
+ * @component
+ */
 function Error({ children }) {
   return (
     <div className={styles.error}>

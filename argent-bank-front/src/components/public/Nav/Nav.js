@@ -8,11 +8,21 @@ import { faRightFromBracket, faUserCircle } from '@fortawesome/free-solid-svg-ic
 import { useDispatch, useSelector } from 'react-redux'
 import { NOT_AUTHENTICATED } from '@/store'
 
+/**
+ * Nav bar'.
+ *
+ * @component
+ */
 const Nav = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const user = useSelector((store) => store.user)
+  const store = useSelector((store) => store)
 
+  /**
+   * @memberof Sessions
+   * @function signOut
+   * @description delete token in local storage en reset store
+   */
   const signOut = () => {
     accountService.deleteToken()
     dispatch(NOT_AUTHENTICATED())
@@ -34,7 +44,7 @@ const Nav = () => {
       ) : (
         <div>
           <Link to="/profile" className={style.nav__item}>
-            <FontAwesomeIcon icon={faUserCircle} /> {user.firstName} {user.lastName}
+            <FontAwesomeIcon icon={faUserCircle} /> {store.user.firstName} {store.user.lastName}
           </Link>
           <button onClick={signOut} className={style.nav__button}>
             <FontAwesomeIcon icon={faRightFromBracket} /> Sign Out

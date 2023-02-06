@@ -3,8 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import style from './profile.module.scss'
 import { userService } from '@/_services/user.service'
 import UserEdit from '@/pages/privat/User/UserEdit'
-import { USERPROFIL } from '../../../store'
+import { USERPROFIL } from '@/store'
 
+/**
+ * displays user profile
+ * @component
+ * @returns {JSX} user profile
+ */
 const Profile = () => {
   const user = useSelector((state) => state.user)
   const [showUserForm, setShowUserForm] = useState(false)
@@ -16,7 +21,6 @@ const Profile = () => {
       userService
         .getUser()
         .then((res) => {
-          console.log(res.data)
           dispatch(
             USERPROFIL({ firstName: res.data.body.firstName, lastName: res.data.body.lastName })
           )
@@ -26,9 +30,12 @@ const Profile = () => {
     return () => (flag.current = true)
   }, [])
 
-  const store = useSelector((store) => store)
-  console.log(store)
-
+  /**
+   * update store update when UserEdit child component changes
+   * @memberof Profile
+   * @function handleChangeUser
+   * @param {object} childData
+   */
   const handleChangeUser = (childData) => {
     const newUser = childData()
     newUser && dispatch(USERPROFIL({ ...user, ...newUser }))

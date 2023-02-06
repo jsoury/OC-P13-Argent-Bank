@@ -1,7 +1,16 @@
 import React, { useState } from 'react'
-import { userService } from '../../../_services/user.service'
+import { userService } from '@/_services/user.service'
 import style from './user.module.scss'
 
+/**
+ * displays user edit
+ * @component
+ * @returns {JSX} form user edit
+ * @param {object} user - user
+ * @param {string} user.firstName - user first name
+ * @param {string} user.lastName - user last name
+ * @param {function} handleChangeUser - foncton change user from parent component
+ */
 const UserEdit = ({ user, handleChangeUser }) => {
   const [newUser, setNewUser] = useState(user)
 
@@ -20,7 +29,6 @@ const UserEdit = ({ user, handleChangeUser }) => {
     userService
       .updateUser(newUser)
       .then((res) => {
-        console.log(res)
         handleChangeUser(onTrigger)
       })
       .catch((error) => console.log(error))
