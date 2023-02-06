@@ -42,6 +42,10 @@ html {
   white-space: nowrap !important; /* 3 */
 }
 
+.error-message{
+  color: red;
+}
+
 @for $i from 1 through 3 {
   h#{$i} {
     font-size: calc(2 - ($i * 0.5)) + rem;

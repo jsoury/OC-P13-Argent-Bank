@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { AUTHENTICATED } from '@/store'
 import { accountService } from '@/_services/account.service'
@@ -8,6 +7,11 @@ import style from './signIn.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 
+/**
+ * displays login form
+ * @component
+ * @returns {JSX} login form
+ */
 const SignIn = () => {
   let navigate = useNavigate()
   const dispatch = useDispatch()
@@ -15,22 +19,46 @@ const SignIn = () => {
     email: 'tony@stark.com',
     password: 'password123',
   })
+  const [loginError, setLogginError] = useState(false)
+  const [remember, setRemember] = useState(false)
 
+  /**
+   * update credentials input on change
+   * @memberof SignIn
+   * @function onChange
+   */
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
   }
 
+  /**
+   * toggle the remember checkbox status
+   * @memberof SignIn
+   * @function toggleRemenber
+   */
+  const toggleRemenber = () => {
+    setRemember(!remember)
+  }
+
+  /**
+   * submit request login and update store with the response
+   * @memberof SignIn
+   * @function handleSubmit
+   * @param {Event} e
+   */
   const handleSubmit = (e) => {
     e.preventDefault()
     accountService
       .login(credentials)
       .then((res) => {
-        console.log(res)
-        accountService.setToken(res.data.body.token)
-        dispatch(AUTHENTICATED(res.data.body.token))
+        remember && accountService.setToken(res.data.body.token)
+        dispatch(AUTHENTICATED(remember, res.data.body.token))
         navigate('/profile')
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        console.log(error)
+        setLogginError(true)
+      })
   }
 
   return (
@@ -60,9 +88,10 @@ const SignIn = () => {
             />
           </div>
           <div className={style.input__remember}>
-            <input type="checkbox" id="remember-me" />
+            <input type="checkbox" id="remember-me" checked={remember} onChange={toggleRemenber} />
             <label htmlFor="remember-me">Remember me</label>
           </div>
+          {loginError && <p className="error-message">Login Error</p>}
           <button className={style.signIn__button}>Sign In</button>
         </form>
       </section>
