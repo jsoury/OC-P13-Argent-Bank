@@ -19,7 +19,7 @@ const Nav = () => {
   const store = useSelector((store) => store)
 
   /**
-   * @memberof Sessions
+   * @memberof Nav
    * @function signOut
    * @description delete token in local storage en reset store
    */
