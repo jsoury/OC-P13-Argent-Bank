@@ -4,6 +4,13 @@ import style from './profile.module.scss'
 import { userService } from '@/_services/user.service'
 import UserEdit from '@/pages/privat/User/UserEdit'
 import { USERPROFIL } from '@/store'
+import CardAccount from '../../../components/private/CardAccount'
+
+const ACCOUNTSUSER = [
+  { title: 'Argent Bank Checking (x8349)', amount: '$2,082.79', description: 'Available Balance' },
+  { title: 'Argent Bank Savings (x6712)', amount: '$10,928.42', description: 'Available Balance' },
+  { title: 'Argent Bank Credit Card (x8349)', amount: '$184.30', description: 'Current Balance' },
+]
 
 /**
  * displays user profile
@@ -58,6 +65,16 @@ const Profile = () => {
           <UserEdit user={user} handleChangeUser={handleChangeUser} />
         )}
       </div>
+      <h2 className="sr-only">Accounts</h2>
+
+      {ACCOUNTSUSER.map((key, index) => (
+        <CardAccount
+          key={index}
+          title={key.title}
+          amount={key.amount}
+          description={key.description}
+        ></CardAccount>
+      ))}
     </div>
   )
 }
